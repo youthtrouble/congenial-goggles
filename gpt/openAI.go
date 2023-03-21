@@ -55,7 +55,7 @@ func RetrieveOpenAIChatCompletions(message string) (*string, error) {
 
 	baseMessage := initBaseMessage()
 	var request chatCompletionsRequest
-	request.Model = "gpt-3.5-turbo"
+	request.Model = "gpt-4"
 	request.Messages = baseMessage
 
 	if cachedMessages, present := retrieveCachedChatCompletioFormat(); present {
