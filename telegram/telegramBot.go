@@ -25,7 +25,7 @@ func InitTelegramListening() {
 			continue
 		}
 
-		promptResponse, err := gpt.RetrieveOpenAICompletions(update.Message.Text)
+		promptResponse, err := gpt.RetrieveOpenAIChatCompletions(update.Message.Text)
 		if err != nil {
 			log.Println(err)
 			continue
