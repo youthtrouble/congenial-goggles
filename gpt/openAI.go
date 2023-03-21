@@ -6,12 +6,24 @@ import (
 	"errors"
 	"fmt"
 	"io/ioutil"
+	"log"
 	"net/http"
 
 	"github.com/youthtrouble/congenial-goggles/utils"
 )
 
 const openAIURL = "https://api.openai.com/v1"
+
+func initBaseMessage() []chatMessage {
+
+	var baseMessage []chatMessage
+	baseMessage = append(baseMessage, chatMessage{
+		Role:    "system",
+		Content: "You are a helpful assistant.",
+	})
+
+	return baseMessage
+}
 
 func RetrieveOpenAICompletions(prompt string) (*string, error) {
 
@@ -22,7 +34,7 @@ func RetrieveOpenAICompletions(prompt string) (*string, error) {
 		Prompt: prompt,
 		//might also want to change this to something lowe
 		//open ai charges per 1000 tokens
-		MaxTokens:   500,
+		MaxTokens: 500,
 		//please check the openAI docs for a better overview of the temperature
 		//parameter controls.
 		//--but for Nigerians, -- the blood fit dey hhpt so it'll do crazy things
@@ -37,6 +49,46 @@ func RetrieveOpenAICompletions(prompt string) (*string, error) {
 	}
 
 	return &response.Choices[0].Text, nil
+}
+
+func RetrieveOpenAIChatCompletions(message string) (*string, error) {
+
+	baseMessage := initBaseMessage()
+	var request chatCompletionsRequest
+	request.Model = "gpt-3.5-turbo"
+	request.Messages = baseMessage
+
+	if cachedMessages, present := retrieveCachedChatCompletioFormat(); present {
+		request.Messages = populateFromCache(request.Messages, cachedMessages)
+	}
+
+	request.Messages = append(request.Messages, chatMessage{
+		Role:    "user",
+		Content: message,
+	})
+
+	appendNewCacheEntry(user, message)
+	log.Printf("🚨 request: %+v", request)
+	var response chatCompletionsResponse
+	err := executeOpenAIRequest("POST", "chat/completions", request, &response)
+	if err != nil {
+		return nil, err
+	}
+
+	appendNewCacheEntry(assistant, response.Choices[0].Message.Content)
+	return &response.Choices[0].Message.Content, nil
+}
+
+func populateFromCache(Messages []chatMessage, cachedMessages []chatComletionFormat) []chatMessage {
+
+	for _, cachedMessage := range cachedMessages {
+		Messages = append(Messages, chatMessage{
+			Role:    cachedMessage.role.String(),
+			Content: cachedMessage.text,
+		})
+	}
+
+	return Messages
 }
 
 func executeOpenAIRequest(method, endpoint string, requestData, destination interface{}) error {
@@ -65,6 +117,7 @@ func executeOpenAIRequest(method, endpoint string, requestData, destination inte
 	req.Header.Set("Content-Type", "application/json")
 
 	var response *http.Response
+	log.Print("request: ", req)
 	response, err = http.DefaultClient.Do(req)
 	if err != nil {
 		return err
@@ -72,11 +125,11 @@ func executeOpenAIRequest(method, endpoint string, requestData, destination inte
 
 	responseCode := response.StatusCode
 	if responseCode != 200 && responseCode != 201 {
+		log.Print("error processing request: ", response)
 		return errors.New("error processing request")
 	}
 
 	defer response.Body.Close()
-
 	responseBody, err := ioutil.ReadAll(response.Body)
 	if err != nil {
 		return err
