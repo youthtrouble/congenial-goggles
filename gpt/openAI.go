@@ -35,9 +35,9 @@ func RetrieveOpenAICompletions(prompt string) (*string, error) {
 		//might also want to change this to something lowe
 		//open ai charges per 1000 tokens
 		MaxTokens: 500,
-		//please check the openAI docs for a better overview of the temperature
-		//parameter controls.
-		//--but for Nigerians, -- the blood fit dey hhpt so it'll do crazy things
+		//please take a look at the openAI docs for a better overview of the 
+		//temperature parameter controls.
+		//--but for Nigerians, -- the blood fit dey hot so it'll do crazy things
 		//i.e take more risks and not sound bland
 		Temperature: 1,
 	}
