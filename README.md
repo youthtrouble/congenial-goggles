@@ -16,7 +16,7 @@ This is for people who want to deploy, maintain and control their own version of
 You need to copy the contents of the `.env.example` file into a new `.env` file.
 
 -   `TELEGRAM_BOT_TOKEN` : You need to create a new bot on Telegram and generate new keys for the said bot. [Here’s](https://sendpulse.ng/knowledge-base/chatbot/telegram/create-telegram-chatbot) a good guide to help with this.
--   `OPENAI_API_KEY` : OpenAI provides API keys on the user settings on the web app. [Read more…](https://www.windowscentral.com/software-apps/how-to-get-an-openai-api-key)
+-   `OPENAI_API_KEY` : OpenAI provides API keys on the user settings page of the web app. [Read more…](https://www.windowscentral.com/software-apps/how-to-get-an-openai-api-key)
 
 Run `go run main.go` .
 
