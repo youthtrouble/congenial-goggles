@@ -9,7 +9,7 @@ This is for people who want to deploy, maintain and control their own version of
 **A few things worthy(?) of note**
 
 -   This uses in-memory(i.e. fake) storage to store conversation context. Little did I know that openAI has no time to handle that for you  :s . At the moment, it stores said context for about 12 minutes after the last message. 
--   It currently uses the `gpt-3.5-turbo`, but depending on your `rizz`, you might want to [change this](https://github.com/youthtrouble/congenial-goggles/blob/71dbf12594eaf71bff9e1d5b7d83ad17a92e77fc/gpt/openAI.go#L58).
+-   It currently uses the `gpt-3.5-turbo` model, but depending on your `rizz`, you might want to [change this](https://github.com/youthtrouble/congenial-goggles/blob/71dbf12594eaf71bff9e1d5b7d83ad17a92e77fc/gpt/openAI.go#L58).
 
 **How to run**
 
