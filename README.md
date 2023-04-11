@@ -22,7 +22,7 @@ Run `go run main.go` .
 
 **Issues**
 
-There’s currently a repeated occurrence of the bot not responding after some time. My suspicion is that it might not be a result of the code; rather, it’s associated with the free Render instance I currently have it hosted on. I might be wrong, and it’s totally open to fixes and contributions.
+There’s currently a repeated occurrence of the bot not responding after some time. My suspicion is that it might not be a result of the code; rather, it’s associated with the free [Render](https://render.com/) instance I currently have it hosted on. I might be wrong, and it’s totally open to fixes and contributions.
 
 **Contributions**
 
