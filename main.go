@@ -8,8 +8,8 @@ import (
 
 	"github.com/gorilla/mux"
 	"github.com/joho/godotenv"
+	"github.com/youthtrouble/congenial-goggles/handlers"
 	"github.com/youthtrouble/congenial-goggles/telegram"
-	"github.com/youthtrouble/congenial-goggles/utils"
 )
 
 const defaultPort = "8080"
@@ -27,7 +27,7 @@ func main() {
 	}
 
 	r := mux.NewRouter().StrictSlash(true)
-	r.HandleFunc("/health", utils.HealthCheckHandler).Methods("GET")
+	r.HandleFunc("/health", handlers.HealthCheckHandler).Methods("GET")
 
 	go telegram.InitTelegramListening()
 
