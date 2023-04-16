@@ -49,6 +49,7 @@ func getCache() (interface{}, bool) {
 
 }
 
+//change from lifo to  fifo
 func reverseArray(arr []chatComletionFormat) []chatComletionFormat{
 
 	for i, j := 0, len(arr)-1; i<j; i, j = i+1, j-1 {
