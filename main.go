@@ -28,6 +28,7 @@ func main() {
 
 	r := mux.NewRouter().StrictSlash(true)
 	r.HandleFunc("/health", handlers.HealthCheckHandler).Methods("GET")
+	r.HandleFunc("/oanda", handlers.OandaHandler).Methods("GET")
 
 	go telegram.InitTelegramListening()
 
