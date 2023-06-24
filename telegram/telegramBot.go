@@ -5,7 +5,6 @@ import (
 	"fmt"
 	"log"
 	"os"
-	"strconv"
 	"strings"
 
 	telegrambot "github.com/go-telegram-bot-api/telegram-bot-api/v5"
@@ -70,16 +69,14 @@ func InitOandaTelegramListening() {
 
 func getChatID(m *telegrambot.Message) int64 {
 
-	if !m.Chat.IsSuperGroup() {
-		return int64(m.Chat.ID)
-	}
+	return int64(m.Chat.ID)
 
-	chatToString := fmt.Sprintf("%d", m.Chat.ID)
-	chatID := "-" + chatToString[3:]
-	chatIDInt, err := strconv.Atoi(chatID)
-	if err != nil {
-		return 0
-	}
+	// chatToString := fmt.Sprintf("%d", m.Chat.ID)
+	// chatID := "-" + chatToString[3:]
+	// chatIDInt, err := strconv.Atoi(chatID)
+	// if err != nil {
+	// 	return 0
+	// }
 
-	return int64(chatIDInt)
+	// return int64(chatIDInt)
 }
