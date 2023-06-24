@@ -9,8 +9,6 @@ import (
 	"log"
 	"net/http"
 	"time"
-
-	"github.com/youthtrouble/congenial-goggles/utils"
 )
 
 const oandaURL = "https://fxds-public-exchange-rates-api.oanda.com/cc-api/currencies?"
@@ -80,7 +78,7 @@ func executeOandaRequest(method, endpoint string, requestData, destination inter
 
 	var response *http.Response
 	log.Print("request: ", req)
-	response, err = utils.GetDebugClient().Do(req)
+	response, err = http.DefaultClient.Do(req)
 	if err != nil {
 		return err
 	}
