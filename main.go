@@ -31,7 +31,7 @@ func main() {
 	r.HandleFunc("/oanda", handlers.OandaHandler).Methods("GET")
 
 	// go telegram.InitAlfredTelegramListening()
-	go telegram.InitOandaTelegramListening()
+	telegram.InitOandaTelegramListening()
 
 	fmt.Printf("Starting server at port %s\n", port)
 	if err := http.ListenAndServe(":"+port, r); err != nil {
