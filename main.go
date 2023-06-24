@@ -9,7 +9,6 @@ import (
 	"github.com/gorilla/mux"
 	"github.com/joho/godotenv"
 	"github.com/youthtrouble/congenial-goggles/handlers"
-	"github.com/youthtrouble/congenial-goggles/telegram"
 )
 
 const defaultPort = "8080"
@@ -30,7 +29,7 @@ func main() {
 	r.HandleFunc("/health", handlers.HealthCheckHandler).Methods("GET")
 	r.HandleFunc("/oanda", handlers.OandaHandler).Methods("GET")
 
-	go telegram.InitTelegramListening()
+	// go telegram.InitTelegramListening()
 
 	fmt.Printf("Starting server at port %s\n", port)
 	if err := http.ListenAndServe(":"+port, r); err != nil {
