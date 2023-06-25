@@ -8,36 +8,37 @@ import (
 	"strings"
 
 	telegrambot "github.com/go-telegram-bot-api/telegram-bot-api/v5"
+	"github.com/youthtrouble/congenial-goggles/gpt"
 	oandastuff "github.com/youthtrouble/congenial-goggles/oanda-stuff"
 )
 
-// func InitAlfredTelegramListening() {
-// 	bot, err := telegrambot.NewBotAPI(os.Getenv("TELEGRAM_BOT_TOKEN"))
-// 	if err != nil {
-// 		log.Print(errors.New("Error initializing telegram bot: " + err.Error()))
-// 	}
+func InitAlfredTelegramListening() {
+	bot, err := telegrambot.NewBotAPI(os.Getenv("TELEGRAM_BOT_TOKEN"))
+	if err != nil {
+		log.Print(errors.New("Error initializing telegram bot: " + err.Error()))
+	}
 
-// 	bot.Debug = true
-// 	u := telegrambot.NewUpdate(0)
-// 	u.Timeout = 60
+	bot.Debug = true
+	u := telegrambot.NewUpdate(0)
+	u.Timeout = 60
 
-// 	updates := bot.GetUpdatesChan(u)
-// 	for update := range updates {
-// 		if update.Message == nil {
-// 			continue
-// 		}
+	updates := bot.GetUpdatesChan(u)
+	for update := range updates {
+		if update.Message == nil {
+			continue
+		}
 
-// 		promptResponse, err := gpt.RetrieveOpenAIChatCompletions(update.Message.Text)
-// 		if err != nil {
-// 			log.Println(err)
-// 			continue
-// 		}
+		promptResponse, err := gpt.RetrieveOpenAIChatCompletions(update.Message.Text)
+		if err != nil {
+			log.Println(err)
+			continue
+		}
 
-// 		msg := telegrambot.NewMessage(update.Message.Chat.ID, *promptResponse)
-// 		msg.ReplyToMessageID = update.Message.MessageID
-// 		bot.Send(msg)
-// 	}
-// }
+		msg := telegrambot.NewMessage(update.Message.Chat.ID, *promptResponse)
+		msg.ReplyToMessageID = update.Message.MessageID
+		bot.Send(msg)
+	}
+}
 
 func InitOandaTelegramListening() {
 	bot, err := telegrambot.NewBotAPI(os.Getenv("OANDA_BOT_TOKEN"))
@@ -58,7 +59,7 @@ func InitOandaTelegramListening() {
 		respoonseMessage := "Error getting updates, please try again in a bit"
 		oandaRates, time, err := oandastuff.FetchCurrentOandaRates()
 		if err == nil {
-			respoonseMessage = fmt.Sprintf(" Current GBP/NGN rates: ₦%s\nTime: %s\n", oandaRates.Response[0].AverageBid, *time)
+			respoonseMessage = fmt.Sprintf(" Current GBP/NGN rates: ₦%s\nTime: %s\n", oandaRates.Response[0].AverageAsk, *time)
 		}
 
 		msg := telegrambot.NewMessage(getChatID(update.Message), respoonseMessage)

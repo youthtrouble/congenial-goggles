@@ -77,7 +77,6 @@ func executeOandaRequest(method, endpoint string, requestData, destination inter
 	req.Header.Add("Accept-Language", "en-GB,en-US;q=0.9,en;q=0.8")
 
 	var response *http.Response
-	log.Print("request: ", req)
 	response, err = http.DefaultClient.Do(req)
 	if err != nil {
 		return err
