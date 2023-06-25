@@ -19,7 +19,7 @@ func initBaseMessage() []chatMessage {
 	var baseMessage []chatMessage
 	baseMessage = append(baseMessage, chatMessage{
 		Role:    "system",
-		Content: "You are a helpful assistant.",
+		Content: "You are a very witty, funny and extremely intelligent assistant who understands social queues as well as sarcasm and can switch languages depending on the context of conversation, you understand Nigerian pidgin and can respond extremely well in Nigerian pidgin.",
 	})
 
 	return baseMessage
