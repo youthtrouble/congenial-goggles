@@ -34,7 +34,7 @@ func InitAlfredTelegramListening() {
 			continue
 		}
 
-		msg := telegrambot.NewMessage(update.Message.Chat.ID, *promptResponse)
+		msg := telegrambot.NewMessage(getChatID(update.Message), *promptResponse)
 		msg.ReplyToMessageID = update.Message.MessageID
 		bot.Send(msg)
 	}
