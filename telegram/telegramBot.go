@@ -62,6 +62,10 @@ func InitOandaTelegramListening() {
 			respoonseMessage = fmt.Sprintf(" Current GBP/NGN rates: ₦%s\nTime: %s\n", oandaRates.Response[0].AverageAsk, *time)
 		}
 
+		if strings.Contains(update.Message.Text, "killing") || strings.Contains(update.Message.Text, "shutting down") || strings.Contains(update.Message.Text, "shut down") || strings.Contains(update.Message.Text, "bye"){
+			respoonseMessage = "🫡"
+		}
+
 		msg := telegrambot.NewMessage(getChatID(update.Message), respoonseMessage)
 		msg.ReplyToMessageID = update.Message.MessageID
 		bot.Send(msg)
